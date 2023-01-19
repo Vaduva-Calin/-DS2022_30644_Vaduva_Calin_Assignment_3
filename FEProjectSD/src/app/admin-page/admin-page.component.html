@@ -1,0 +1,144 @@
+
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <h3> Admin Page</h3>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" type="button" (click)="logOut()">LogOut</a>
+  </li>
+</ul>
+
+<br>
+
+<div class="tables-container">
+<h1>User Table</h1>
+<table mat-table [dataSource]="usersSource" class="mat-elevation-z8 demo-table table table-dark table-striped ">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let element">{{element.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef>Username</th>
+    <td mat-cell *matCellDef="let element">{{element.userName}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>Edit</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="editUser(element)">
+        <mat-icon class="mat-18">edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>Delete</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" (click)="deleteUser(element)">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<p>
+  <button type="button" class="btn btn-default btn-sm">
+    Add new user:
+    <br>
+    <mat-icon class="addButton" (click)="openAddDialog()">add</mat-icon>
+  </button>
+</p>
+
+<h1>Device Table</h1>
+<table mat-table [dataSource]="devicesSource" class="mat-elevation-z8 demo-table table table-dark table-striped ">
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let element">{{element.id}}</td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let element">{{element.description}}</td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef>Address</th>
+    <td mat-cell *matCellDef="let element">{{element.address}}</td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="maxConsumption">
+    <th mat-header-cell *matHeaderCellDef>MaxConsumption</th>
+    <td mat-cell *matCellDef="let element">{{element.maxConsumption}}</td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="userId">
+    <th mat-header-cell *matHeaderCellDef>UserId</th>
+    <td mat-cell *matCellDef="let element">{{element.userId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>Edit</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="accent" (click)="editDevice(element)">
+        <mat-icon class="mat-18">edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>Delete</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="warn" (click)="deleteDevice(element)">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="deviceColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: deviceColumns;"></tr>
+</table>
+<p>
+  <button type="button" class="btn btn-default btn-sm">Add new device
+    <br>
+    <mat-icon class="addButton" (click)="openAddDeviceDialog()">add</mat-icon>
+  </button>
+</p>
+</div>
+<br>
+<button class="afisChat" type="submit" ng-hide="true" (click)="activateChat()">ShowChat</button>
+<div id="chatBox" class="col-xs-10 col-sm-3 col-md-3 col-lg-3" style="background:#a3c7d8; margin-left: 38%; display: none;">
+  <div id="chat" style="height:300px; overflow-y:scroll">
+    <table mat-table [dataSource]="messagesSource" class="mat-elevation-z8 demo-table table table-dark table-striped ">
+
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <td mat-cell *matCellDef="let element">{{element}}</td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: messageColumns;"></tr>
+    </table>
+  </div>
+  <div class="finalButton">
+  <input type="text" (keyup.enter)="sendMessageToClient()" (keyup)="sendIsTyping()" [(ngModel)]="messageToSend" class="form-control" placeholder="Enter a Message ">
+  <button class="btn btn-primary btn-s" type="submit" ng-hide="true" (click)="sendMessageToClient()">Submit</button>
+  <p id="typing">isTyping...</p>
+  <p id="seen">seen</p>
+  </div>
+</div>
+<br>
